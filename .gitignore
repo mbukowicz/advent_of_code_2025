@@ -1,0 +1,38 @@
+#================================
+# Go build artifacts
+#================================
+/bin/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+#================================
+# Go test / coverage
+#================================
+*.test
+*.out
+coverage.out
+
+#================================
+# Go dependencies
+#================================
+/vendor/
+
+#================================
+# VS Code
+#================================
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+# Debug binaries (Delve / VS Code Go extension)
+__debug_bin*
+debug.test
+
+#================================
+# macOS
+#================================
+.DS_Store
