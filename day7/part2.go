@@ -24,7 +24,7 @@ func Part2() {
 		fmt.Fprintf(os.Stderr, "error reading file: %v\n", err)
 	}
 
-	beams := make(map[int]int)
+	beams := map[int]int{}
 	for row, line := range lines {
 		if row == 0 {
 			for col := 0; col < len(line); col++ {
@@ -33,29 +33,14 @@ func Part2() {
 				}
 			}
 		} else {
-			newBeams := make(map[int]int)
+			newBeams := map[int]int{}
 			for beamCol, incomingBeams := range beams {
 				switch line[beamCol] {
 				case '.':
-					outgoingBeams, exists := newBeams[beamCol]
-					if exists {
-						newBeams[beamCol] = outgoingBeams + incomingBeams
-					} else {
-						newBeams[beamCol] = incomingBeams
-					}
+					newBeams[beamCol] += incomingBeams
 				case '^':
-					outgoingBeamsLeft, existsLeft := newBeams[beamCol-1]
-					if existsLeft {
-						newBeams[beamCol-1] = outgoingBeamsLeft + incomingBeams
-					} else {
-						newBeams[beamCol-1] = incomingBeams
-					}
-					outgoingBeamsRight, existsRight := newBeams[beamCol+1]
-					if existsRight {
-						newBeams[beamCol+1] = outgoingBeamsRight + incomingBeams
-					} else {
-						newBeams[beamCol+1] = incomingBeams
-					}
+					newBeams[beamCol-1] += incomingBeams
+					newBeams[beamCol+1] += incomingBeams
 				}
 			}
 			beams = newBeams

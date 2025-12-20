@@ -17,13 +17,13 @@ func Part1() {
 	defer f.Close()
 
 	scanner := bufio.NewScanner(f)
-	numsRows := make([][]int, 0)
-	operations := make([]string, 0)
+	numsRows := [][]int{}
+	operations := []string{}
 	for scanner.Scan() {
 		line := scanner.Text()
 		fields := strings.Fields(line)
 		if fields[0] != "+" && fields[0] != "*" {
-			nums := make([]int, 0)
+			nums := []int{}
 			for _, strNum := range fields {
 				num, err := strconv.Atoi(strNum)
 				if err != nil {

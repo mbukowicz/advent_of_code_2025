@@ -24,7 +24,7 @@ func Part1() {
 		fmt.Fprintf(os.Stderr, "error reading file: %v\n", err)
 	}
 
-	beams := make(map[int]bool)
+	beams := map[int]bool{}
 	beamCount := 0
 	for row, line := range lines {
 		if row == 0 {
@@ -34,8 +34,8 @@ func Part1() {
 				}
 			}
 		} else {
-			newBeams := make(map[int]bool)
-			for beamCol, _ := range beams {
+			newBeams := map[int]bool{}
+			for beamCol := range beams {
 				switch line[beamCol] {
 				case '.':
 					newBeams[beamCol] = true

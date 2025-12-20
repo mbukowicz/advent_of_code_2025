@@ -15,7 +15,7 @@ func Part2() {
 	defer f.Close()
 
 	scanner := bufio.NewScanner(f)
-	lines := make([]string, 0)
+	lines := []string{}
 	for scanner.Scan() {
 		line := scanner.Text()
 		lines = append(lines, line)
@@ -25,7 +25,7 @@ func Part2() {
 	}
 
 	totalSum := 0
-	nums := make([]int, 0)
+	nums := []int{}
 	for col := len(lines[0]) - 1; col >= 0; col-- {
 		num := 0
 		for row := 0; row < len(lines)-1; row++ {
@@ -46,7 +46,7 @@ func Part2() {
 			}
 			fmt.Println("Adding:", nums, "=", sum)
 			totalSum += sum
-			nums = make([]int, 0)
+			nums = []int{}
 			col--
 		case '*':
 			prod := 1
@@ -55,7 +55,7 @@ func Part2() {
 			}
 			fmt.Println("Multiplying:", nums, "=", prod)
 			totalSum += prod
-			nums = make([]int, 0)
+			nums = []int{}
 			col--
 		}
 	}
