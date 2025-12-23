@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"slices"
 	"strconv"
 	"strings"
 
@@ -45,15 +46,6 @@ func parseJoltages(joltagesInputString string) []int {
 	return joltages
 }
 
-func contains(haystack []int, needle int) bool {
-	for _, n := range haystack {
-		if n == needle {
-			return true
-		}
-	}
-	return false
-}
-
 func findMinPressesInPart2(machine MachineInPart2) int {
 	fmt.Println("Machine:", machine)
 
@@ -89,7 +81,7 @@ func findMinPressesInPart2(machine MachineInPart2) int {
 			coefficients[i] = 0
 		}
 		for i, indicatorLights := range machine.buttons {
-			if contains(indicatorLights, joltageIndicatorLight) {
+			if slices.Contains(indicatorLights, joltageIndicatorLight) {
 				coefficients[i] = 1
 			}
 		}
