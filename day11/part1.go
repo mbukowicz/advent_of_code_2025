@@ -7,17 +7,6 @@ import (
 	"strings"
 )
 
-func countInPart1(from, to string, connections map[string][]string) int {
-	if from == to {
-		return 1
-	}
-	sum := 0
-	for _, device := range connections[from] {
-		sum += countInPart1(device, to, connections)
-	}
-	return sum
-}
-
 func Part1() {
 	f, err := os.Open("inputs/day11.txt")
 	if err != nil {
@@ -43,7 +32,9 @@ func Part1() {
 		}
 	}
 	fmt.Println(connections)
-	fmt.Println(countInPart1("you", "out", connections))
+
+	cache := map[string]int{}
+	fmt.Println(countConnections("you", "out", connections, cache))
 
 	if err := scanner.Err(); err != nil {
 		fmt.Fprintf(os.Stderr, "error reading file: %v\n", err)

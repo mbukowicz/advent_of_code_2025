@@ -98,8 +98,6 @@ func findMinPressesInPart2(machine MachineInPart2) int {
 	} else {
 		panic("Could not find an optimal solution")
 	}
-
-	return -1
 }
 
 func Part2() {

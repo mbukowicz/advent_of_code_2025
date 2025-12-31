@@ -70,8 +70,6 @@ func Part1() {
 		}
 		if canFitNaively(width, height, patternCounts) {
 			count++
-		} else {
-			// TBD
 		}
 	}
 	fmt.Println(count)

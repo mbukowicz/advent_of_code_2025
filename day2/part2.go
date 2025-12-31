@@ -8,39 +8,6 @@ import (
 	"strings"
 )
 
-func isInvalidID2(id int64) bool {
-	idStr := strconv.FormatInt(id, 10)
-	for i := 1; i < len(idStr); i++ {
-		if len(idStr)%i != 0 {
-			continue
-		}
-		allRepeated := true
-		firstSubstring := idStr[0:i]
-		for j := i; j+i <= len(idStr); j += i {
-			nextSubstring := idStr[j : j+i]
-			if nextSubstring != firstSubstring {
-				allRepeated = false
-				break
-			}
-		}
-		if allRepeated {
-			return true
-		}
-	}
-	return false
-}
-
-func sumInvalidIDs2(from int64, to int64) int64 {
-	sum := int64(0)
-	for i := from; i <= to; i++ {
-		if isInvalidID2(i) {
-			fmt.Println("Invalid: ", i)
-			sum += i
-		}
-	}
-	return sum
-}
-
 func Part2() {
 	f, err := os.Open("inputs/day2.txt")
 	if err != nil {
@@ -48,6 +15,28 @@ func Part2() {
 		return
 	}
 	defer f.Close()
+
+	isInvalidID := func(id int64) bool {
+		idStr := strconv.FormatInt(id, 10)
+		for i := 1; i < len(idStr); i++ {
+			if len(idStr)%i != 0 {
+				continue
+			}
+			allRepeated := true
+			firstSubstring := idStr[0:i]
+			for j := i; j+i <= len(idStr); j += i {
+				nextSubstring := idStr[j : j+i]
+				if nextSubstring != firstSubstring {
+					allRepeated = false
+					break
+				}
+			}
+			if allRepeated {
+				return true
+			}
+		}
+		return false
+	}
 
 	result := int64(0)
 	scanner := bufio.NewScanner(f)
@@ -58,7 +47,7 @@ func Part2() {
 			bounds := strings.Split(r, "-")
 			start, _ := strconv.ParseInt(bounds[0], 10, 64)
 			end, _ := strconv.ParseInt(bounds[1], 10, 64)
-			result += sumInvalidIDs2(start, end)
+			result += sumInvalidIDs(start, end, isInvalidID)
 		}
 	}
 	if err := scanner.Err(); err != nil {

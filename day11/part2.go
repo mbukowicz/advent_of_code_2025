@@ -7,27 +7,6 @@ import (
 	"strings"
 )
 
-func countInPart2(from, to string, connections map[string][]string, cache map[string]int) int {
-	if from == to {
-		return 1
-	}
-
-	cacheKey := from + ":" + to
-	valueFromCache, existsInCache := cache[cacheKey]
-	if existsInCache {
-		return valueFromCache
-	}
-
-	sum := 0
-	for _, device := range connections[from] {
-		sum += countInPart2(device, to, connections, cache)
-	}
-
-	cache[cacheKey] = sum
-
-	return sum
-}
-
 func Part2() {
 	f, err := os.Open("inputs/day11.txt")
 	if err != nil {
@@ -54,8 +33,8 @@ func Part2() {
 	}
 	fmt.Println(connections)
 	cache := map[string]int{}
-	countFromSvrToOutThroughFftAndDac := countInPart2("svr", "fft", connections, cache) * countInPart2("fft", "dac", connections, cache) * countInPart2("dac", "out", connections, cache)
-	countFromSvrToOutThroughDacAndFft := countInPart2("svr", "dac", connections, cache) * countInPart2("dac", "fft", connections, cache) * countInPart2("fft", "out", connections, cache)
+	countFromSvrToOutThroughFftAndDac := countConnections("svr", "fft", connections, cache) * countConnections("fft", "dac", connections, cache) * countConnections("dac", "out", connections, cache)
+	countFromSvrToOutThroughDacAndFft := countConnections("svr", "dac", connections, cache) * countConnections("dac", "fft", connections, cache) * countConnections("fft", "out", connections, cache)
 	totalCount := countFromSvrToOutThroughFftAndDac + countFromSvrToOutThroughDacAndFft
 	fmt.Println(totalCount)
 

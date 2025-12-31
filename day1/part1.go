@@ -26,7 +26,7 @@ func Part1() {
 			panic(err)
 		}
 
-		fmt.Println(direction, clicks) // R 60
+		fmt.Println(direction, clicks) // e.g. R 60
 		switch direction {
 		case "R":
 			dial += clicks
